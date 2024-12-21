@@ -148,17 +148,12 @@ Create a `ServiceAccount` YAML manifest (`service-account.yaml`):
 ```yaml
 
 apiVersion: v1
-
 kind: ServiceAccount
-
 metadata:
-
   name: k8s-user
-
   namespace: webapps
 
 ```
-
 Apply the manifest:
 
 ```bash
@@ -174,79 +169,42 @@ Create a `Role` YAML manifest (`role.yaml`) to define permissions:
 ```yaml
 
 apiVersion: rbac.authorization.k8s.io/v1
-
 kind: Role
-
 metadata:
-
   name: app-role
-
   namespace: webapps
-
 rules:
-
   - apiGroups:
-
         - ""
-
         - apps
-
         - autoscaling
-
         - batch
-
         - extensions
-
         - policy
-
         - rbac.authorization.k8s.io
-
     resources:
-
       - pods
-
       - secrets
-
       - componentstatuses
-
       - configmaps
-
       - daemonsets
-
       - deployments
-
       - events
-
       - endpoints
-
       - horizontalpodautoscalers
-
-      - ingress
-
+      - ingres
       - jobs
-
       - limitranges
-
       - namespaces
-
       - nodes
-
       - pods
-
       - persistentvolumes
-
       - persistentvolumeclaims
-
       - resourcequotas
-
-      - replicasets
-
+      - replicaset
       - replicationcontrollers
-
       - serviceaccounts
-
       - services
-
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 
 ```
@@ -266,29 +224,17 @@ Create a `RoleBinding` YAML manifest (`rolebinding.yaml`) to bind the role to th
 ```yaml
 
 apiVersion: rbac.authorization.k8s.io/v1
-
 kind: RoleBinding
-
 metadata:
-
   name: app-rolebinding
-
   namespace: webapps 
-
 roleRef:
-
   apiGroup: rbac.authorization.k8s.io
-
   kind: Role
-
   name: app-role 
-
 subjects:
-
 - namespace: webapps 
-
   kind: ServiceAccount
-
   name: k8s-user
 
 ```
@@ -308,19 +254,12 @@ Create a `Secret` YAML manifest (`secret.yaml`) to generate a token for the serv
 ```yaml
 
 apiVersion: v1
-
 kind: Secret
-
 type: kubernetes.io/service-account-token
-
 metadata:
-
   name: k8s-secrets
-
   namespace: webapps
-
   annotations:
-
     kubernetes.io/service-account.name: k8s-user
 
 ```
